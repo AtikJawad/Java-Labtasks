@@ -1,42 +1,34 @@
 
 package labtask5;
 
-import java.util.*;
+import java.util.ArrayList;
+
 public class Library {
-    Book[] books;
-    int bookCount;
+    private ArrayList<Book> books;
 
-    Library(int size) {
-        books = new Book[size];
-        bookCount = 0;
+    public Library() {
+        books = new ArrayList<>();
     }
 
-    void addBook(String title, String author, String type) {
-        if (bookCount < books.length) {
-            books[bookCount++] = new Book(title, author, type);
-            System.out.println("Book added: " + title);
-        } else {
-            System.out.println("Library is full!");
-        }
+    public void addBook(Book book) {
+        books.add(book);
     }
 
-    void searchBook(String title) {
-        for (int i = 0; i < bookCount; i++) {
-            if (books[i].title.equals(title)) {
-                System.out.println("Found: " + books[i].title + " by " + books[i].author + " - " + 
-                                  (books[i].isAvailable ? "Available" : "Not Available"));
-                return;
+    public Book searchBook(String title) {
+        for (Book book : books) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                book.displayInfo();
+                return book;
             }
         }
         System.out.println("Book not found.");
+        return null;
     }
 
-    Book getAvailableBook(String title) {
-        for (int i = 0; i < bookCount; i++) {
-            if (books[i].title.equals(title) && books[i].isAvailable) {
-                return books[i];
-            }
+    public void displayAllBooks() {
+        System.out.println("\n--- Library Books ---");
+        for (Book book : books) {
+            book.displayInfo();
         }
-        return null;
     }
 }

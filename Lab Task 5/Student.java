@@ -1,3 +1,4 @@
+package labtask5;
 public class Student extends User {
 
     public Student(String name) {

@@ -1,56 +1,42 @@
 
 package labtask5;
 
-import java.util.*;
-public class User {
-    String name;
-    String userType; // Student or Teacher
-    int borrowedCount = 0;
-    Book[] borrowedBooks = new Book[3]; // Max books a teacher can borrow
+import java.util.ArrayList;
 
-    User(String name, String userType) {
+public abstract class User {
+    protected String name;
+    protected int maxBooks;
+    protected ArrayList<Book> borrowedBooks;
+
+    public User(String name, int maxBooks) {
         this.name = name;
-        this.userType = userType;
+        this.maxBooks = maxBooks;
+        this.borrowedBooks = new ArrayList<>();
     }
 
-    boolean canBorrow() {
-        if (userType.equals("Student")) {
-            return borrowedCount < 2;
+    public abstract double calculateLateFee(Book book, int daysLate);
+
+    public boolean borrowBook(Book book) {
+        if (borrowedBooks.size() < maxBooks && book.isAvailable()) {
+            borrowedBooks.add(book);
+            book.setAvailability(false);
+            System.out.println(name + " borrowed \"" + book.getTitle() + "\"");
+            return true;
         } else {
-            return borrowedCount < 3;
+            System.out.println("Cannot borrow book. Limit reached or book not available.");
+            return false;
         }
     }
 
-    void borrowBook(Book book) {
-        if (canBorrow() && book.isAvailable) {
-            borrowedBooks[borrowedCount++] = book;
-            book.isAvailable = false;
-            System.out.println(name + " borrowed " + book.title);
+    public void returnBook(Book book, int daysLate) {
+        if (borrowedBooks.contains(book)) {
+            double fee = calculateLateFee(book, daysLate);
+            borrowedBooks.remove(book);
+            book.setAvailability(true);
+            System.out.println(name + " returned \"" + book.getTitle() + "\". Late Fee: " + fee + " Tk.");
         } else {
-            System.out.println("Cannot borrow book.");
-        }
-    }
-
-    void returnBook(String title, int daysLate) {
-        for (int i = 0; i < borrowedCount; i++) {
-            if (borrowedBooks[i].title.equals(title)) {
-                borrowedBooks[i].isAvailable = true;
-                System.out.println(name + " returned " + title);
-                calculateLateFee(daysLate, borrowedBooks[i]);
-                borrowedBooks[i] = null;
-                borrowedCount--;
-                return;
-            }
-        }
-        System.out.println("Book not found in borrowed list.");
-    }
-
-    void calculateLateFee(int daysLate, Book book) {
-        if (daysLate > 0 && book.type.equals("Printed")) {
-            int fine = daysLate * 5;
-            if (userType.equals("Student")) fine /= 2;
-            if (userType.equals("Teacher")) fine = 0;
-            System.out.println("Late fee: " + fine + "Tk");
+            System.out.println("This book was not borrowed by " + name + ".");
         }
     }
 }
+

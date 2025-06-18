@@ -89,6 +89,22 @@ public class LabTask1 {
         double y2 = sc.nextDouble();
         System.out.println("The Euclidean distance between the points ("+ x1 + ", " + y1 + ") and (" + x2 + ", " + y2 + ") is: " + Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2)));
         //Euclidean distance
+
+        int totalRolls =1000;
+        int [] sumcounts = new int [13];
+        
+        for(int i=0;i<totalRolls;i++){
+            
+            int dice1= (int)(Math.random()*6)+1;
+            int dice2= (int)(Math.random()*6)+1;
+            int sum = dice1+dice2;
+            sumcounts[sum]++;
+            }
+        for(int sum=2;sum<=12;sum++){
+            double percentage= (sumcounts[sum]*100)/totalRolls;
+            
+            System.out.printf("%d \t %.2f\n", sum, percentage);
+        } //Simulating Dice Rolls
         
         
      

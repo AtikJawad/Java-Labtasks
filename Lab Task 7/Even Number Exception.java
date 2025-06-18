@@ -3,7 +3,7 @@ import java.util.*;
 public class Main {
     public static void checkNumber(int number) throws ArithmeticException {
         if (number % 2 == 0) {
-            throw new ArithmeticException("Even number!");
+            throw new ArithmeticException("ERROR: Even number!");
         }
     }
 

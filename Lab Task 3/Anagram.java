@@ -1,3 +1,8 @@
+/* Anagram condition:-
+1.They have the same length
+2.They contain the same characters
+3.The frequency of each character is the same
+*/
 
 package labtask3;
 

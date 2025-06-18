@@ -1,3 +1,6 @@
+/*Write a program in Java to compresses a string by counting
+consecutive repeated characters. Example: aaabbcc; → a3b2c2;.*/
+
 import java.util.Scanner;
 
 //Mostly same as the Frequency counter code from Lab Task 2

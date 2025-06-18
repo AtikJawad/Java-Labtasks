@@ -1,3 +1,4 @@
+//One string is a rotation of another if it can be found inside the original string written twice.
 
 package labtask3;
 
